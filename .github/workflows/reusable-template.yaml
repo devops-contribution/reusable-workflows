@@ -24,6 +24,10 @@ on:
         required: false
         type: string
         default: "update-tag"
+      text:
+	required: true
+	type: string
+	default "Hi!"
       
     secrets:
       GH_TOKEN:
