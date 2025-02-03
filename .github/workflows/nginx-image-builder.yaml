@@ -57,7 +57,7 @@ jobs:
       
       - name: Replace image version in deployment.yaml
         run: |
-          sed -i "s|image: .*|image: ${{ github.event.inputs.version }}|g" other-repo/manifests/apps/entity/base/deployment.yaml
+          sed -i "s|image: .*|image: ${{ github.event.inputs.version }}|g" k8s-apps/manifests/apps/entity/base/deployment.yaml
 
       - name: Create PR for version bump
         uses: devops-contribution/shared-libraries/.github/workflows/reusable-template.yaml@main
