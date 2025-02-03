@@ -50,6 +50,6 @@ jobs:
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
       text: "Hello, from github actions!!"
-      token: "${{ secrets.SLACK_BOT_TOKEN }}"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      token: "${{ secrets.SLACK_BOT_TOKEN }}"

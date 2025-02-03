@@ -32,13 +32,11 @@ on:
         required: true
         type: string
         default: "Hello!"
-      token:
-        required: true
-        type: string
-        default: ""
       
     secrets:
       GH_TOKEN:
+        required: true
+      token:	
         required: true
 
 jobs:
@@ -86,7 +84,7 @@ jobs:
         uses: slackapi/slack-github-action@v2.0.0
         with:
           method: chat.postMessage
-          token: "${{ inputs.token }}"
+          token: "${{ secrets.token }}"
           payload: |
             channel: "${{ inputs.channel }}"
             text: "${{ inputs.text }}"
