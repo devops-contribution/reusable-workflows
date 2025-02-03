@@ -30,9 +30,9 @@ on:
         default: "Hi!"
       
     secrets:
+      SLACK_BOT_TOKEN:	
+	required: true
       GH_TOKEN:
-        required: true
-      SLACK_WEBHOOK_URL:	
         required: true
 
 jobs:
@@ -82,7 +82,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post text to a Slack channel
-        run: |
-	  curl -X POST -H "Content-type: application/json" \
-          --data "$(jq -n --arg text "${{ inputs.text }}" '{"text":$text}')" \
-          "${{ secrets.SLACK_WEBHOOK_URL }}"
+ 	uses: slackapi/slack-github-action@v2.0.0
+  	with:
+    	  method: chat.postMessage
+    	  token: ${{ secrets.SLACK_BOT_TOKEN }}
+    	  payload: |
+      	    channel: "C08BAR4AXCH"
+      	    text: ${{ inputs.text }}
