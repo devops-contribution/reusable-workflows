@@ -44,12 +44,11 @@ jobs:
     uses: ./.github/workflows/reusable-template.yaml
     with:
       file_path: "manifests/apps/entity/base/deployment.yaml"
-      search_pattern: "image: nginx:latest"
-      replace_value: "image: nginx:${{ github.event.inputs.version }}"
       pr_title: "Bump version to ${{ github.event.inputs.version }}"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
       text: "Hello, from github actions!!"
+      updated_version: "${{ github.event.inputs.version }}"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
