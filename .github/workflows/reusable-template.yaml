@@ -64,9 +64,10 @@ jobs:
           git push origin "${{ inputs.branch_name }}"
  
       - name: check file
-        run: |
- 	  cat "${{ inputs.file_path }}"
-          git branch
+        run: cat "${{ inputs.file_path }}"
+     
+      - name: check branch
+        run: git branch
 
 
       - name: Create Pull Request
