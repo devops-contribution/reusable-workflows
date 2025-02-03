@@ -25,9 +25,9 @@ on:
         type: string
         default: "update-tag"
       text:
-	required: true
-	type: string
-	default "Hi!"
+        required: true
+        type: string
+        default "Hi!"
       
     secrets:
       GH_TOKEN:
@@ -83,3 +83,7 @@ jobs:
     steps:
       - name: Post text to a Slack channel
         run: curl -X POST -H 'Content-type: application/json' --data '{"text":"${{ inputs.text }}"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+
+
+
