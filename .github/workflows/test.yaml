@@ -1,0 +1,20 @@
+name: "Test"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version of the Docker image"
+        required: true
+        type: string
+        default: "latest"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: print variable
+        run: | 
+          VERSION=${{ github.event.inputs.version }}
+          echo " $VERSION"
