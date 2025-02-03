@@ -82,6 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post text to a Slack channel
-        run: curl -X POST -H "Content-type: application/json" \
-             --data "$(jq -n --arg text "${{ inputs.text }}" '{"text":$text}')" \
-             "${{ secrets.SLACK_WEBHOOK_URL }}"
+        run: |
+	  curl -X POST -H "Content-type: application/json" \
+          --data "$(jq -n --arg text "${{ inputs.text }}" '{"text":$text}')" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
