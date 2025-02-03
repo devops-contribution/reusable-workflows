@@ -52,15 +52,15 @@ jobs:
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-  slack-notification:
-    needs: trigger-update-tag
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send Slack notification
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-	  method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-	  payload: |
-	    channel: 'C08BAR4AXCH'
-	    text: "A new PR has been created for 'entity service' version bump to ${{ github.event.inputs.version }}. Please review."
+  #slack-notification:
+  #  needs: trigger-update-tag
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Send Slack notification
+  #      uses: slackapi/slack-github-action@v2.0.0
+  #      with:
+  #	  method: chat.postMessage
+  #        token: ${{ secrets.SLACK_BOT_TOKEN }}
+  #	  payload: |
+  #	    channel: 'C08BAR4AXCH'
+  #	    text: "A new PR has been created for 'entity service' version bump to ${{ github.event.inputs.version }}. Please review."
