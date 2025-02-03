@@ -38,6 +38,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
+      - name: check pwd
+        run: pwd
+
       - name: Update Version in File
         run: |
           sed -i "s/${{ inputs.search_pattern }}/${{ inputs.replace_value }}/g" ${{ inputs.file_path }}
