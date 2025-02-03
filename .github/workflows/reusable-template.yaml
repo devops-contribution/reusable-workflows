@@ -62,13 +62,29 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+#      - name: Create Branch and Commit Changes
+#        run: |
+#          git checkout -b "${{ inputs.branch_name }}"
+#          git add "${{ inputs.file_path }}"
+#          git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
+#          git pull --rebase
+#          git push origin "${{ inputs.branch_name }}"
+
       - name: Create Branch and Commit Changes
         run: |
           git checkout -b "${{ inputs.branch_name }}"
           git add "${{ inputs.file_path }}"
           git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
-          git pull --rebase
+    
+          # Set the upstream branch
+          git push --set-upstream origin "${{ inputs.branch_name }}"
+    
+          # Now safely rebase with the latest main branch
+          git pull --rebase origin main
+    
+          # Push the changes
           git push origin "${{ inputs.branch_name }}"
+
 
       - name: Check File
         run: cat "${{ inputs.file_path }}"
