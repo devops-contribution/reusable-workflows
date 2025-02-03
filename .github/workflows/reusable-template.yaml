@@ -29,9 +29,9 @@ on:
         type: string
         default: "C08BAR4AXCH"
       text:
-	required: true
-	type: string
-	default: "Hello!"
+        required: true
+        type: string
+        default: "Hello!"
       
     secrets:
       GH_TOKEN:
