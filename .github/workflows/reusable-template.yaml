@@ -27,7 +27,7 @@ on:
       text:
         required: true
         type: string
-        default "Hi!"
+        default: "Hi!"
       
     secrets:
       GH_TOKEN:
