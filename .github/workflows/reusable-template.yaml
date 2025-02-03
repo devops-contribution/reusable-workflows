@@ -83,7 +83,6 @@ jobs:
           labels: |
  	    service: entity
 	    Automated-PR: true
-	  delete-branch: true
 
   slack-notification:
     needs: update-tag
