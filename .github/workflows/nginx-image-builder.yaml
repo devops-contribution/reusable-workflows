@@ -43,7 +43,7 @@ jobs:
 
   trigger-update-tag:
     needs: build-and-push
-    uses: ./.github/workflows/reusable-template.yaml@main
+    uses: ./.github/workflows/reusable-template.yaml
     with:
       file_path: "manifests/apps/entity/base/deployment.yaml"
       search_pattern: "image: .*"
