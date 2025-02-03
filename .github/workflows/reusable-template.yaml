@@ -65,6 +65,7 @@ jobs:
         run: |
           git checkout -b "${{ inputs.branch_name }}"
           git add "${{ inputs.file_path }}"
+          git status
           git commit -m "chore: update tag version to '${{ inputs.replace_value }}'"
           git push origin "${{ inputs.branch_name }}"
 
