@@ -25,7 +25,6 @@ jobs:
           VERSION=${{ github.event.inputs.version }}
           echo "Replacing placeholder with version: $VERSION"
           sed -i "s/VERSION_PLACEHOLDER/$VERSION/" devops/html/index.html 
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -38,48 +37,30 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }} -f devops/Dockerfile .
-
       - name: Push the Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }}
-
   trigger-update-tag:
     needs: build-and-push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout k8s-apps repository
-        uses: actions/checkout@v3
-        with:
-          repository: devops-contribution/k8s-apps
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: k8s-apps
-      
-      - name: Replace image version in deployment.yaml
-        run: |
-          sed -i "s|image: .*|image: ${{ github.event.inputs.version }}|g" k8s-apps/manifests/apps/entity/base/deployment.yaml
-
-      - name: Create PR for version bump
-        uses: devops-contribution/shared-libraries/.github/workflows/reusable-template.yaml@main
-        with:
-          file_path: "manifests/apps/entity/base/deployment.yaml"
-          search_pattern: "image: .*"
-          replace_value: "image: ${{ github.event.inputs.version }}"
-          pr_title: "Bump version to ${{ github.event.inputs.version }}"
-          pr_body: "Automated update of application version."
-          branch_name: "update-tag-${{ github.event.inputs.version }}"
-        secrets:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: devops-contribution/shared-libraries/.github/workflows/reusable-template.yaml@main
+    with:
+      file_path: "manifests/apps/entity/base/deployment.yaml"
+      search_pattern: "image: .*"
+      replace_value: "image: ${{ github.event.inputs.version }}"
+      pr_title: "Bump version to ${{ github.event.inputs.version }}"
+      pr_body: "Automated update of application version."
+      branch_name: "update-tag-${{ github.event.inputs.version }}"
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   slack-notification:
     needs: trigger-update-tag
     runs-on: ubuntu-latest
-
     steps:
       - name: Send Slack notification
         uses: slackapi/slack-github-action@v1.22.0
         with:
-          channel-id: 'C08BAR4AXCH'
+          channel-id: 'YOUR_SLACK_CHANNEL_ID'
           text: 'A new PR has been created for version bump to ${{ github.event.inputs.version }}. Please review.'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
