@@ -24,14 +24,6 @@ on:
         required: false
         type: string
         default: "update-tag"
-      channel:
-        required: false
-        type: string
-        default: "C08BAR4AXCH"
-      text:
-        required: true
-        type: string
-        default: "Hello!"
       
     secrets:
       GH_TOKEN:
