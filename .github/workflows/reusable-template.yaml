@@ -1,0 +1,66 @@
+name: "Update Tag and Create PR"
+
+on:
+  workflow_call:
+    inputs:
+      file_path:
+        required: true
+        type: string
+      search_pattern:
+        required: true
+        type: string
+      replace_value:
+        required: true
+        type: string
+      pr_title:
+        required: false
+        type: string
+        default: "Update tag version"
+      pr_body:
+        required: false
+        type: string
+        default: "Automated PR to update the tag version"
+      branch_name:
+        required: false
+        type: string
+        default: "update-tag"
+    secrets:
+      GH_TOKEN:
+        required: true
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Update Version in File
+        run: |
+          sed -i "s/${{ inputs.search_pattern }}/${{ inputs.replace_value }}/g" ${{ inputs.file_path }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create Branch and Commit Changes
+        run: |
+          git checkout -b ${{ inputs.branch_name }}
+          git add ${{ inputs.file_path }}
+          git commit -m "chore: update tag version to ${{ inputs.replace_value }}"
+          git push origin ${{ inputs.branch_name }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          branch: ${{ inputs.branch_name }}
+          base: main
+          title: "${{ inputs.pr_title }}"
+          body: "${{ inputs.pr_body }}"
+          labels: "automation, version-update"
+
