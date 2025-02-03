@@ -42,12 +42,12 @@ jobs:
           fetch-depth: 0
 
       - name: Install yq
-        run: >
-          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
-          sudo chmod +x /usr/local/bin/yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
 
       - name: Update Version in File
-        run: >
+        run: |
           yq -i '.spec.template.spec.containers[0].image = "nginx:${{
           inputs.updated_version }}"' "${{ inputs.file_path }}"
 
