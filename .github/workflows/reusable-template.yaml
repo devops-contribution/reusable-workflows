@@ -28,10 +28,10 @@ on:
         required: true
         type: string
         default: "Hi!"
-      
+
     secrets:
-      SLACK_BOT_TOKEN:	
-	required: true
+      SLACK_BOT_TOKEN:
+        required: true
       GH_TOKEN:
         required: true
 
@@ -65,7 +65,7 @@ jobs:
         run: |
           git checkout -b "${{ inputs.branch_name }}"
           git add "${{ inputs.file_path }}"
-          git commit -m 'chore: update tag version to "${{ inputs.replace_value }}"'
+          git commit -m "chore: update tag version to '${{ inputs.replace_value }}'"
           git push origin "${{ inputs.branch_name }}"
 
       - name: Create Pull Request
@@ -82,11 +82,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post text to a Slack channel
- 	uses: slackapi/slack-github-action@v2.0.0
-  	with:
-    	  method: chat.postMessage
-    	  token: "${{ secrets.SLACK_BOT_TOKEN }}"
-    	  payload: |
-      	    channel: "C08BAR4AXCH"
-      	    text: "${{ inputs.text }}"
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          token: "${{ secrets.SLACK_BOT_TOKEN }}"
+          payload: |
+            channel: "C08BAR4AXCH"
+            text: "${{ inputs.text }}"
+
 
