@@ -37,7 +37,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }} devops/Dockerfile
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }} ./devops/Dockerfile
 
       - name: Push the Docker image to Docker Hub
         run: |
