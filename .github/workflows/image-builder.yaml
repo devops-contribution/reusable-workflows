@@ -52,4 +52,4 @@ jobs:
       text: "Hello, from github actions!!"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      SLACK_WEBHOOK_URL: "${{ secrets.SLACK_BOT_TOKEN }}"
+      SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
