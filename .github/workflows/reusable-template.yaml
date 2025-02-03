@@ -73,14 +73,15 @@ jobs:
           git push origin ${{ inputs.branch_name }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_TOKEN }}
           branch: ${{ inputs.branch_name }}
           base: main
           title: "${{ inputs.pr_title }}"
-          body: "${{ inputs.pr_body }}"
+          commit-message: "${{ inputs.pr_body }}"
           labels: "service: entity"
+	  delete-branch: true
 
   slack-notification:
     needs: update-tag
