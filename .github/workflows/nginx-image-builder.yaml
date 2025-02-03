@@ -49,7 +49,7 @@ jobs:
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
     secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
   slack-notification:
     needs: trigger-update-tag
@@ -58,7 +58,7 @@ jobs:
       - name: Send Slack notification
         uses: slackapi/slack-github-action@v1.22.0
         with:
-          channel-id: 'YOUR_SLACK_CHANNEL_ID'
+          channel-id: 'C08BAR4AXCH'
           text: 'A new PR has been created for version bump to ${{ github.event.inputs.version }}. Please review.'
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
