@@ -25,7 +25,7 @@ on:
         type: string
         default: "update-tag"
       channel:
-        required: true
+        required: false
         type: string
         default: "C08BAR4AXCH"
       text:
