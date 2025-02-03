@@ -40,9 +40,10 @@ jobs:
       - name: Push the Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }}
+
   trigger-update-tag:
     needs: build-and-push
-    uses: devops-contribution/shared-libraries/.github/workflows/reusable-template.yaml@main
+    uses: ./.github/workflows/reusable-template.yaml@main
     with:
       file_path: "manifests/apps/entity/base/deployment.yaml"
       search_pattern: "image: .*"
