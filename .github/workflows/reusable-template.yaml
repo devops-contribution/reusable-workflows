@@ -80,8 +80,6 @@ jobs:
           base: main
           title: "${{ inputs.pr_title }}"
           commit-message: "${{ inputs.pr_body }}"
- 	  labels: |
-	    service entity
 	  delete-branch: true
 
   slack-notification:
