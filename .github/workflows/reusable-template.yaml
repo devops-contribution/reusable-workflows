@@ -80,7 +80,6 @@ jobs:
           base: main
           title: "${{ inputs.pr_title }}"
           commit-message: "${{ inputs.pr_body }}"
-	  delete-branch: true
 
   slack-notification:
     needs: update-tag
