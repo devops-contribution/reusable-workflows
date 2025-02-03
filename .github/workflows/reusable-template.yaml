@@ -31,7 +31,7 @@ on:
       
     secrets:
       SLACK_BOT_TOKEN:	
-	required: true
+	      required: true
       GH_TOKEN:
         required: true
 
