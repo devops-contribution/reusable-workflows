@@ -56,9 +56,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack notification
-        uses: slackapi/slack-github-action@v1.22.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
-          channel-id: 'C08BAR4AXCH'
-          payload: 'A new PR has been created for version bump to ${{ github.event.inputs.version }}. Please review.'
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+	  method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+	  payload: |
+	    channel: 'C08BAR4AXCH'
+	    text: "A new PR has been created for 'entity service' version bump to ${{ github.event.inputs.version }}. Please review."
