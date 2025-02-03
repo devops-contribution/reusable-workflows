@@ -32,6 +32,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: check PWD
+        run: pwd
+
       - name: Build the Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }} devops/Dockerfile
