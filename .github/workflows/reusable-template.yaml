@@ -57,37 +57,14 @@ jobs:
         run: cat "${{ inputs.file_path }}"
 
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-#      - name: Create Branch and Commit Changes
-#        run: |
-#          git checkout -b "${{ inputs.branch_name }}"
-#          git add "${{ inputs.file_path }}"
-#          git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
-#          git pull --rebase
-#          git push origin "${{ inputs.branch_name }}"
-
       - name: Create Branch and Commit Changes
         run: |
+	  git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "${{ inputs.branch_name }}"
-          git add "${{ inputs.file_path }}"
+          git add .
           git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
-    
-          # Set the upstream branch
-          git push --set-upstream origin "${{ inputs.branch_name }}"
-    
-          # Now safely rebase with the latest main branch
-          git pull --rebase origin main
-    
-          # Push the changes
           git push origin "${{ inputs.branch_name }}"
-
-
-      - name: Check File
-        run: cat "${{ inputs.file_path }}"
 
       - name: Debug Git History
         run: git log --oneline -5
@@ -95,11 +72,12 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: "${{ secrets.GH_TOKEN }}"
           branch: "${{ inputs.branch_name }}"
           base: main
           title: "${{ inputs.pr_title }}"
-          commit-message: "${{ inputs.pr_body }}"
+          body: "${{ inputs.pr_body }}"
+	  labels: "automated, update"
 
   slack-notification:
     needs: update-tag
