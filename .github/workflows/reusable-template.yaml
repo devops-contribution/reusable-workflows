@@ -63,5 +63,5 @@ jobs:
           base: main
           title: "${{ inputs.pr_title }}"
           body: "${{ inputs.pr_body }}"
-          labels: "automation, version-update"
+          labels: "service: entity"
 
