@@ -49,29 +49,6 @@ jobs:
       pr_title: "Bump version to ${{ github.event.inputs.version }}"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
+      text: "Hello, from github actions!!"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-  slack-notification:
-    needs: trigger-update-tag
-    runs-on: ubuntu-latest
-    steps:
-      - name: Post text to a Slack channel
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: 'C08BAR4AXCH'
-            text: "howdy!!"
-
-
-
-  #    - name: Send Slack notification
-  #      uses: slackapi/slack-github-action@v2.0.0
-  #      with:
-  #	  method: chat.postMessage
-  #        token: ${{ secrets.SLACK_BOT_TOKEN }}
-  #	  payload: |
-  #	    channel: 'C08BAR4AXCH'
-  #	    text: "A new PR has been created for 'entity service' version bump to ${{ github.event.inputs.version }}. Please review."
