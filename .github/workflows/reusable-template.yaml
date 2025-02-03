@@ -54,6 +54,9 @@ jobs:
         run: |
           sed -i "s/${{ inputs.search_pattern }}/${{ inputs.replace_value }}/g" ${{ inputs.file_path }}
 
+      - name: check file
+        run: cat ${{ inputs.file_path }}
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
