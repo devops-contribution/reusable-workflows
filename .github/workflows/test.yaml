@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          #repository: devops-contribution/k8s-apps
-          #token: ${{ secrets.GH_PAT }}
+          repository: devops-contribution/k8s-apps
+          token: ${{ secrets.GH_PAT }}
           fetch-depth: 0
 
       - name: Configure Git
@@ -29,13 +29,13 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "UPDATE"
-          #git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
+          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
           git push origin $BRANCH_NAME
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          #token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_PAT }}
           commit-message: update authors
           base: "main"
           title: Update AUTHORS
