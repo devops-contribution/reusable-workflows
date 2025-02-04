@@ -24,6 +24,4 @@ This repository contains reusable GitHub Actions workflows that can be leveraged
 - Create a pull request
 
 ## 📄 License
-NA
-
-
+### NA
