@@ -28,17 +28,17 @@ jobs:
           BRANCH_NAME="update-authors-$(date +%s)"  # Unique branch name
           git checkout -b $BRANCH_NAME
           git add .
-          git diff
-          git commit -m "UPDATE"
-          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
-          git push origin $BRANCH_NAME
+          git status
+          #git commit -m "UPDATE"
+          #git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
+          #git push origin $BRANCH_NAME
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GH_PAT }}
-          commit-message: update authors
-          base: "main"
-          title: Update AUTHORS
-          body: Credit new contributors by updating AUTHORS
-          branch: $BRANCH_NAME  # Use the dynamically generated branch name
+      #- name: Create Pull Request
+      #  uses: peter-evans/create-pull-request@v7
+      #  with:
+      #    token: ${{ secrets.GH_PAT }}
+      #    commit-message: update authors
+      #    base: "main"
+      #    title: Update AUTHORS
+      #    body: Credit new contributors by updating AUTHORS
+      #    branch: $BRANCH_NAME  # Use the dynamically generated branch name
