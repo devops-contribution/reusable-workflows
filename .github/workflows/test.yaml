@@ -37,6 +37,7 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
           commit-message: update authors
+          base: "main"
           title: Update AUTHORS
           body: Credit new contributors by updating AUTHORS
           branch: update-authors
