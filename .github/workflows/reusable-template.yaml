@@ -62,6 +62,7 @@ jobs:
           title: ${{ inputs.pr_title }}
           body: ${{ inputs.pr_body }}
           labels: automated, update, entity service
+          delete-branch: true
 
   slack-notification:
     needs: update-tag
