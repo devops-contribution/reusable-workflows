@@ -25,14 +25,14 @@ jobs:
       - name: Update AUTHORS
         run: |
           echo "test" > ./text.txt
-          BRANCH_NAME="update-content-$(date +%s)"  # Unique branch name
-          git checkout -b $BRANCH_NAME
-          git add .
-          git status
-          git branch
-          git commit -m "UPDATE"
-          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
-          git push origin $BRANCH_NAME
+          #BRANCH_NAME="update-content-$(date +%s)"  # Unique branch name
+          #git checkout -b $BRANCH_NAME
+          #git add .
+          #git status
+          #git branch
+          #git commit -m "UPDATE"
+          #git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
+          #git push origin $BRANCH_NAME
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
