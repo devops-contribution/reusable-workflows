@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: devops-contribution/k8s-apps
-          token: ${{ secrets.GH_PAT }}
+          #repository: devops-contribution/k8s-apps
+          #token: ${{ secrets.GH_PAT }}
           fetch-depth: 0
 
       - name: Configure Git
@@ -41,4 +41,3 @@ jobs:
           title: Update AUTHORS
           body: Credit new contributors by updating AUTHORS
           branch: $BRANCH_NAME  # Use the dynamically generated branch name
-
