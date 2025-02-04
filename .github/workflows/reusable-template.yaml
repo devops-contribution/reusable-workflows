@@ -50,7 +50,7 @@ jobs:
 
       - name: Update Version in File
         run: |
-          yq -i '.spec.template.spec.containers[0].image = "docker.io/Muk007/nginx:${{inputs.updated_version }}"' "${{ inputs.file_path }}"
+          yq -i '.spec.template.spec.containers[0].image = "docker.io/muk007/nginx:${{inputs.updated_version }}"' "${{ inputs.file_path }}"
 
       - name: Create Pull Request
         id: cpr
