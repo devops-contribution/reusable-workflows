@@ -49,6 +49,7 @@ jobs:
       branch_name: "update-tag-${{ github.event.inputs.version }}"
       text: "Hello, from github actions!!"
       updated_version: "${{ github.event.inputs.version }}"
+      channel_id: "C08BAR4AXCH"
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

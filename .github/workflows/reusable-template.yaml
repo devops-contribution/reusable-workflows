@@ -25,6 +25,10 @@ on:
         required: true
         type: string
         default: Hi!
+      channel_id:
+        required: true
+        type: string
+        default: ""
     secrets:
       SLACK_BOT_TOKEN:
         required: true
@@ -79,10 +83,5 @@ jobs:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
-            channel: "C08BAR4AXCH"
+            channel: "${{ inputs.channel_id }}"
             text: "${{ inputs.text }}"
-
-
-
-
-
