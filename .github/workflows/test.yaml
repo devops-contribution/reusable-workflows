@@ -3,9 +3,9 @@ name: "Update AUTHORS"
 on:
   workflow_dispatch:
 
-#permissions:
-#  contents: write
-#  pull-requests: write
+permissions:
+  contents: write
+  pull-requests: write
 
 
 jobs:
