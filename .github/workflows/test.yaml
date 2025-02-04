@@ -17,7 +17,7 @@ jobs:
 
       - name: Update AUTHORS
         run: |
-          echo "test" > k8s-apps/text.txt
+          echo "test" > ./text.txt
           git checkout -b update-authors
           git add .
           git commit -m "UPDATE"
