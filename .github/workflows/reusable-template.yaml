@@ -68,7 +68,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           branch: ${{ inputs.branch_name }}
-          base: "main"
+          #base: "main"
           title: ${{ inputs.pr_title }}
           body: ${{ inputs.pr_body }}
           labels: automated, update
