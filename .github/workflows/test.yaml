@@ -29,7 +29,7 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "UPDATE"
-          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
+          #git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
           git push origin $BRANCH_NAME
 
       - name: Create Pull Request
