@@ -43,7 +43,8 @@ jobs:
     needs: build-and-push
     uses: ./.github/workflows/reusable-template.yaml
     with:
-      file_path: "manifests/apps/entity/base/deployment.yaml"
+      #file_path: "manifests/apps/entity/base/deployment.yaml"
+      file_path: "manifests/apps/entity/overlays/dev/deployment-patch.yaml"
       pr_title: "Bump version to ${{ github.event.inputs.version }}"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
