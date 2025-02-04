@@ -28,6 +28,7 @@ jobs:
           git checkout -b update-authors
           git add .
           git commit -m "UPDATE"
+          git remote set-url origin https://${{ secrets.GH_PAT }}@github.com/devops-contribution/k8s-apps.git
           git push origin update-authors
 
       - name: Create Pull Request
