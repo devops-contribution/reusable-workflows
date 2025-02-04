@@ -11,6 +11,9 @@ jobs:
         with:
           repository: devops-contribution/k8s-apps
           fetch-depth: 0
+     
+      - name: List
+        run: ls
 
       - name: Update AUTHORS
         run: |
