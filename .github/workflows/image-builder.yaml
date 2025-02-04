@@ -47,7 +47,7 @@ jobs:
       pr_title: "Bump version to ${{ github.event.inputs.version }}"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ github.event.inputs.version }}"
-      text: "Hello, from github actions!!"
+      text: "PR to review -> ${{ github.event.pull_request.html_url }}"
       updated_version: "${{ github.event.inputs.version }}"
       channel_id: "C08BAR4AXCH"
     secrets:
