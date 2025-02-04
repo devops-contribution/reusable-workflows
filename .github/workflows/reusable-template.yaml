@@ -21,10 +21,6 @@ on:
         required: false
         type: string
         default: update-tag
-      text:
-        required: true
-        type: string
-        default: Hi!
       channel_id:
         required: true
         type: string
@@ -55,6 +51,7 @@ jobs:
           yq -i '.spec.template.spec.containers[0].image = "nginx:${{inputs.updated_version }}"' "${{ inputs.file_path }}"
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GH_PAT }}
@@ -75,4 +72,4 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: "${{ inputs.channel_id }}"
-            text: "${{ inputs.text }}"
+            text: "PR to review - ${{ steps.cpr.outputs.pull-request-url }}"
