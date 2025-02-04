@@ -74,4 +74,4 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: "${{ inputs.channel_id }}"
-            text: "🚀 A new PR has been created, pls review: ${{ needs.update-tag.outputs.pr-url }}"
+            text: "🚀 A new PR has been created, pls review: ${{ needs.update-tag.outputs.pr_url }}"
