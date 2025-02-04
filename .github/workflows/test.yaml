@@ -9,11 +9,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          repository: devops-contribution/k8s-apps
           fetch-depth: 0
 
       - name: Update AUTHORS
         run: |
-          git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > AUTHORS
+          echo "test" > k8s-apps/text.txt
+          git checkout -b update-authors
+          git add .
+          git commit -m "UPDATE"
+          git push origin update-authors
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
