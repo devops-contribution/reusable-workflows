@@ -3,6 +3,11 @@ name: "Update AUTHORS"
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
+
 jobs:
   updateAuthors:
     runs-on: ubuntu-latest
