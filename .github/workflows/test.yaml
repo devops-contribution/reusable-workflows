@@ -25,7 +25,7 @@ jobs:
       - name: Update AUTHORS
         run: |
           echo "test" > ./text.txt
-          #BRANCH_NAME="update-content-$(date +%s)"  # Unique branch name
+          BRANCH_NAME="update-content-$(date +%s)"  # Unique branch name
           #git checkout -b $BRANCH_NAME
           #git add .
           #git status
