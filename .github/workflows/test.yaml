@@ -43,3 +43,5 @@ jobs:
           title: "Update AUTHORS"
           body: "Credit new contributors by updating AUTHORS"
           branch: $BRANCH_NAME  # Use the dynamically generated branch name
+          delete-branch: true
+          reviewers: Muk007
