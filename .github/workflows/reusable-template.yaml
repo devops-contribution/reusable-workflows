@@ -33,6 +33,8 @@ on:
 jobs:
   update-tag:
     runs-on: ubuntu-latest
+    outputs:
+      pr_url: ${{ steps.cpr.outputs.pull-request-url }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -72,4 +74,4 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: "${{ inputs.channel_id }}"
-            text: 'PR to review - "${{ steps.cpr.outputs.pull-request-url }}"'
+            text: "🚀 A new PR has been created, pls review: <${{ needs.cpr.outputs.pull-request-url }}|View PR>"
