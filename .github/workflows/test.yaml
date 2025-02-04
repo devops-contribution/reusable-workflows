@@ -1,6 +1,8 @@
-iname: Update AUTHORS
+name: "Update AUTHORS"
+
 on:
   workflow_dispatch:
+
 jobs:
   updateAuthors:
     runs-on: ubuntu-latest
