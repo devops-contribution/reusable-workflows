@@ -48,41 +48,23 @@ jobs:
 
       - name: Update Version in File
         run: |
-          yq -i '.spec.template.spec.containers[0].image = "nginx:${{
-          inputs.updated_version }}"' "${{ inputs.file_path }}"
-
-      - name: show content
-        run: cat "${{ inputs.file_path }}"
-
-#      - name: Create Branch and Commit Changes
-#        run: |
-#          git config --global user.name "github-actions[bot]"
-#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-#          git checkout -b "${{ inputs.branch_name }}"
-#          git add .
-#          git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
-#          git push origin "${{ inputs.branch_name }}"
+          yq -i '.spec.template.spec.containers[0].image = "nginx:${{inputs.updated_version }}"' "${{ inputs.file_path }}"
 
       - name: Create Branch and Commit Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "${{ inputs.branch_name }}"
-    
-          git add "${{ inputs.file_path }}"
-    
-          git diff --quiet && echo "No changes to commit" || (git commit -m "chore: update tag version to '${{ inputs.updated_version }}'" && git push --set-upstream origin "${{ inputs.branch_name }}")
-
-
-      - name: Debug Git History
-        run: git log --oneline -5
+          git add .
+          git commit -m "chore: update tag version to '${{ inputs.updated_version }}'"
+          git push origin "${{ inputs.branch_name }}"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GH_TOKEN }}
           branch: ${{ inputs.branch_name }}
-          base: main
+          base: "main"
           title: ${{ inputs.pr_title }}
           body: ${{ inputs.pr_body }}
           labels: automated, update
@@ -99,3 +81,8 @@ jobs:
           payload: |
             channel: "C08BAR4AXCH"
             text: "${{ inputs.text }}"
+
+
+
+
+
