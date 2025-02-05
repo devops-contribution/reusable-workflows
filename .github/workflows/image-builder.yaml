@@ -2,12 +2,8 @@ name: "Image Builder"
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version of the Docker image"
-        required: true
-        type: string
-        default: "latest"
+  push: 
+    branches: ["main"]
 
 jobs:
   build-and-push:
@@ -20,14 +16,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Transform version for TAG
-        id: tag
-        run: echo "TAG=$(echo '${{ github.event.inputs.version }}' | tr ' ' '-')" >> $GITHUB_ENV
+      - name: Generate Tag Number
+        run: |
+          VERSION="version-${{ github.run_number }}"
+          echo "TAG=$VERSION" >> $GITHUB_ENV
 
       - name: Replace version placeholder in index.html
         run: |
-          echo "Replacing placeholder with version: ${{ github.event.inputs.version }}"
-          sed -i "s/VERSION_PLACEHOLDER/${{ github.event.inputs.version }}/" devops/html/index.html
+          echo "Replacing placeholder with version: $TAG"
+          sed -i "s/VERSION_PLACEHOLDER/$TAG/" devops/html/index.html
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -50,10 +47,10 @@ jobs:
     uses: ./.github/workflows/reusable-template.yaml
     with:
       file_path: "manifests/apps/entity/overlays/dev/deployment-patch.yaml"
-      pr_title: "Bump version to ${{ github.event.inputs.version }}"
+      pr_title: "Bump version to $TAG"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-$TAG"
-      updated_version: "${{ github.event.inputs.version }}"
+      updated_version: "$TAG"
       channel_id: "C08BAR4AXCH"
     secrets:
       GH_PAT: ${{ secrets.GH_PAT }}
