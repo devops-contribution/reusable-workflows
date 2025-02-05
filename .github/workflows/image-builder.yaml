@@ -35,10 +35,10 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }} -f devops/Dockerfile .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:"${{ github.event.inputs.version }}" -f devops/Dockerfile .
       - name: Push the Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/nginx:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx:"${{ github.event.inputs.version }}"
 
   trigger-update-tag:
     needs: build-and-push
