@@ -1,6 +1,5 @@
 name: "Image Builder"
 
-
 on:
   workflow_dispatch:
     inputs:
@@ -20,13 +19,16 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      
-      - name: Replace version placeholder in Dockerfile
-        run: | 
-          VERSION="${{ github.event.inputs.version }}"
-          echo "Replacing placeholder with version: $VERSION"
-          sed -i "s/VERSION_PLACEHOLDER/$VERSION/" devops/html/index.html 
-          
+
+      - name: Transform version for TAG
+        id: tag
+        run: echo "TAG=$(echo '${{ github.event.inputs.version }}' | tr ' ' '-')" >> $GITHUB_ENV
+
+      - name: Replace version placeholder in index.html
+        run: |
+          echo "Replacing placeholder with version: ${{ github.event.inputs.version }}"
+          sed -i "s/VERSION_PLACEHOLDER/${{ github.event.inputs.version }}/" devops/html/index.html
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -35,18 +37,18 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          TAG=$(echo "${{ github.event.inputs.version }}" | tr ' ' '-')
+          echo "Building image with tag: $TAG"
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:"$TAG" -f devops/Dockerfile .
-      
+
       - name: Push the Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/nginx:"${{ github.event.inputs.version }}"
+          echo "Pushing image with tag: $TAG"
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx:"$TAG"
 
   trigger-update-tag:
     needs: build-and-push
     uses: ./.github/workflows/reusable-template.yaml
     with:
-      #file_path: "manifests/apps/entity/base/deployment.yaml"
       file_path: "manifests/apps/entity/overlays/dev/deployment-patch.yaml"
       pr_title: "Bump version to ${{ github.event.inputs.version }}"
       pr_body: "Automated update of application version."
