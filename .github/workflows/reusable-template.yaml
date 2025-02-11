@@ -17,6 +17,9 @@ on:
         required: false
         type: string
         default: Automated PR to update the tag version
+      service_name:
+        required: true
+        type: string
       branch_name:
         required: false
         type: string
@@ -66,7 +69,7 @@ jobs:
           base: "main"
           title: ${{ inputs.pr_title }}
           body: ${{ inputs.pr_body }}
-          labels: automated, update, entity service
+          labels: automated, update, ${{ inputs.service_name }}
 
   slack-notification:
     needs: update-tag
