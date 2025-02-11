@@ -56,7 +56,7 @@ jobs:
       pr_title: "Bump version to ${{ needs.build-and-push.outputs.image_tag }}"
       pr_body: "Automated update of application version."
       branch_name: "update-tag-${{ needs.build-and-push.outputs.image_tag }}"
-      updated_version: "${{ needs.build-and-push.outputs.image_tag }}"
+      updated_version: "nginx:${{ needs.build-and-push.outputs.image_tag }}"
       channel_id: "C08BAR4AXCH"
     secrets:
       GH_PAT: ${{ secrets.GH_PAT }}
